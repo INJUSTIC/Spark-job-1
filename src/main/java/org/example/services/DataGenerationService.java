@@ -1,18 +1,17 @@
-package org.example.dataGeneration;
+package org.example.services;
 
 import org.example.model.CountryData;
 import org.example.model.GeoPosition;
 import org.example.model.PersonData;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class DataGenerationService {
-    private static final String[] namePool;
-    private static final CountryData[] countryDataPool;
+    private final String[] namePool;
+    private final CountryData[] countryDataPool;
 
-    static {
+    public DataGenerationService() {
         namePool = new String[] {
                 "Adam", "Agnieszka", "Aleksander", "Alicja", "Andrzej", "Anna", "Bartosz",
                 "Beata", "Czesław", "Danuta", "Damian", "Dominika", "Edward", "Elżbieta",
@@ -42,7 +41,7 @@ public class DataGenerationService {
         };
     }
 
-    public static List<PersonData> generateRandomPersonDataList(int size) {
+    public List<PersonData> generateRandomPersonDataList(int size) {
         Random random = new Random();
         List<PersonData> personDataList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -64,19 +63,19 @@ public class DataGenerationService {
         return personDataList;
     }
 
-    private static String getRandomName() {
+    private String getRandomName() {
         Random random = new Random();
         int nameIndex = random.nextInt(0, namePool.length);
         return namePool[nameIndex];
     }
 
-    private static CountryData getRandomCountryData() {
+    private CountryData getRandomCountryData() {
         Random random = new Random();
         int countryDataIndex = random.nextInt(0, countryDataPool.length);
         return countryDataPool[countryDataIndex];
     }
 
-    private static GeoPosition getRandomGeoPosition(CountryData locationData) {
+    private GeoPosition getRandomGeoPosition(CountryData locationData) {
         Random random = new Random();
         double randomLatitude = random.nextDouble(locationData.getMinLatitude(), locationData.getMaxLatitude());
         double randomLongitude = random.nextDouble(locationData.getMinLongitude(), locationData.getMaxLongitude());
