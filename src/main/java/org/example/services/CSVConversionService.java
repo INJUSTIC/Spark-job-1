@@ -1,18 +1,11 @@
-package org.example.dataGeneration;
+package org.example.services;
 
 import org.example.model.PersonData;
-import org.example.operationPerformer.OperationPerformer;
-
 import java.util.List;
 
-public class DataProcessingService {
-    public static String performOperations(List<PersonData> generatedData, String operations) {
-        operations = operations.replaceAll("\\s", "");
-        List<String> operationList = List.of(operations.split(","));
-        return OperationPerformer.performOperations(generatedData, operationList);
-    }
+public class CSVConversionService {
 
-    public static String convertToCSV(List<PersonData> generatedData) {
+    public String convertToCSV(List<PersonData> generatedData) {
         String headers = "_type, _id, Name, Type, Latitude, Longitude \n";
 
         // Tworzenie danych w formacie CSV
@@ -26,7 +19,7 @@ public class DataProcessingService {
         return headers + csvData;
     }
 
-    public static String convertToCSVWithGivenColumns(List<PersonData> generatedData, List<String> columns) {
+    public String convertToCSVWithGivenColumns(List<PersonData> generatedData, String[] columns) {
         StringBuilder csvData = new StringBuilder();
 
         // Nagłówki
@@ -50,7 +43,7 @@ public class DataProcessingService {
         return csvData.toString();
     }
 
-    private static Object getColValue(PersonData personData, String column) {
+    private Object getColValue(PersonData personData, String column) {
         return switch(column) {
             case "_id" -> personData.get_id();
             case "_type" -> personData.get_type();
